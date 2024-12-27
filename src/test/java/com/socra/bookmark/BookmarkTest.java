@@ -42,9 +42,9 @@ class BookmarkTest {
                 .uri(uri)
                 .date(date).build();
 
-        bookmark.setName(newName);
-        bookmark.setUri(newUri);
-        bookmark.setDate(newDate);
+        bookmark.updateName(newName);
+        bookmark.updateUri(newUri);
+        bookmark.updateDate(newDate);
 
         softly.assertThat(bookmark.getName()).isEqualTo(newName);
         softly.assertThat(bookmark.getUri()).isEqualTo(newUri);
