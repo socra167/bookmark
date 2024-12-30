@@ -22,13 +22,17 @@ public class Bookmark {
     @Column(nullable = false)
     private URI uri;
 
+    @Column(nullable = true)
+    private String description;
+
     @Column(nullable = false)
     private LocalDate date;
 
     @Builder
-    public Bookmark(String name, URI uri, LocalDate date) {
+    public Bookmark(String name, URI uri, String description, LocalDate date) {
         this.name = name;
         this.uri = uri;
+        this.description = description;
         this.date = date;
     }
 
@@ -38,6 +42,10 @@ public class Bookmark {
 
     public void updateUri(final URI uri) {
         this.uri = uri;
+    }
+
+    public void updateDescription(final String description) {
+        this.description = description;
     }
 
     public void updateDate(final LocalDate date) {

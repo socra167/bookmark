@@ -1,5 +1,7 @@
 package com.socra.bookmark;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,16 @@ import java.time.LocalDate;
 @Service
 public class ClipboardMonitorService {
 
-    @Autowired
-    private BookmarkService bookmarkService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final BookmarkService bookmarkService;
 
     private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private String lastClipboardContent = ""; // 이전 클립보드 값을 저장할 변수
+
+    @Autowired
+    public ClipboardMonitorService(BookmarkService bookmarkService) {
+        this.bookmarkService = bookmarkService;
+    }
 
     @Scheduled(fixedRate = 1000) // 1초마다 클립보드 확인
     public void monitorClipboard() {
@@ -26,18 +33,19 @@ public class ClipboardMonitorService {
                 String text = (String) content.getTransferData(DataFlavor.stringFlavor);
 
                 // 클립보드 값이 이전과 다를 경우에만 처리
-                if (!text.equals(lastClipboardContent)) {
-                    if (text.startsWith("http")) {
-                        System.out.println("Detected URL: " + text);
-                        Bookmark bookmark = Bookmark.builder()
-                                .uri(new URI(text))
-                                .name("test")
-                                .date(LocalDate.now())
-                                .build();
-                        bookmarkService.saveBookmark(bookmark); // URL을 DB에 저장
-                        lastClipboardContent = text; // 새로운 클립보드 값을 저장
-                        Toolkit.getDefaultToolkit().beep();
-                    }
+                if (!text.equals(lastClipboardContent) && text.startsWith("http")) {
+                    logger.debug("Detected URL: {}", text);
+                    URI uri = new URI(text);
+                    MetaData metaData = MetaDataExtractor.getMetaDataFromUri(uri);
+                    Bookmark bookmark = Bookmark.builder()
+                            .name(metaData.getTitle())
+                            .uri(uri)
+                            .description(metaData.getDescription())
+                            .date(LocalDate.now())
+                            .build();
+                    bookmarkService.saveBookmark(bookmark); // URL을 DB에 저장
+                    lastClipboardContent = text; // 새로운 클립보드 값을 저장
+                    Toolkit.getDefaultToolkit().beep();
                 }
             }
         } catch (Exception e) {
