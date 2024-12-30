@@ -7,6 +7,7 @@ import java.net.URI;
 import java.time.LocalDate;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table
