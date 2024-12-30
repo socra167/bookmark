@@ -34,6 +34,15 @@ public class BookmarkController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/exists")
+    public boolean existByUri(@RequestParam("uri") String uri) {
+        try {
+            return bookmarkService.existsByUri(new URI(uri));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid URI format", e);
+        }
+    }
+
     // 새로운 북마크 추가
     @PostMapping
     public ResponseEntity<Bookmark> createBookmark(@RequestBody Bookmark bookmark) {
@@ -59,9 +68,20 @@ public class BookmarkController {
 
     // ID로 특정 북마크 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBookmark(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteBookmarkById(@PathVariable("id") Long id) {
         if (bookmarkService.findBookmarkById(id).isPresent()) {
             bookmarkService.deleteBookmarkById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteBookmarkByUri(@RequestParam("uri") String uriInput) {
+        URI uri = URI.create(uriInput);
+        if (bookmarkService.existsByUri(uri)) {
+            bookmarkService.deleteBookmarkByUri(uri);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
