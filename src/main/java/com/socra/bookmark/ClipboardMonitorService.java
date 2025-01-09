@@ -2,8 +2,6 @@ package com.socra.bookmark;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -11,19 +9,15 @@ import java.awt.datatransfer.*;
 import java.net.URI;
 import java.time.LocalDate;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ClipboardMonitorService {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final BookmarkService bookmarkService;
-
-    private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private String lastClipboardContent = ""; // 이전 클립보드 값을 저장할 변수
-
-    @Autowired
-    public ClipboardMonitorService(BookmarkService bookmarkService) {
-        this.bookmarkService = bookmarkService;
-    }
+    private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     // @Scheduled(fixedRate = 1000) // 1초마다 클립보드 확인
     public void monitorClipboard() {
@@ -42,7 +36,7 @@ public class ClipboardMonitorService {
                     String title = "";
                     String description = "";
                     try {
-                        MetaData metaData = MetaDataExtractor.getMetaDataFromUri(uri);
+                        MetaData metaData = MetaData.MetaDataExtractor.getMetaDataFromUri(uri);
                         title = metaData.getTitle();
                         description = metaData.getDescription();
                     } catch (Exception e) {

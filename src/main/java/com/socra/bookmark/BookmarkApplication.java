@@ -8,8 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class BookmarkApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(BookmarkApplication.class, args);
-    }
-
+	public static void main(String[] args) {
+		SpringApplication.run(BookmarkApplication.class, args);
+	}
 }
