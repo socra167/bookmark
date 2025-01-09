@@ -1,4 +1,4 @@
-package com.socra.bookmark;
+package com.socra.bookmark.domain;
 
 import java.io.IOException;
 import java.net.URI;

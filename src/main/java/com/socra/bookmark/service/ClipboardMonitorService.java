@@ -1,4 +1,4 @@
-package com.socra.bookmark;
+package com.socra.bookmark.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.net.URI;
 import java.time.LocalDate;
+
+import com.socra.bookmark.domain.Bookmark;
+import com.socra.bookmark.domain.MetaData;
 
 import lombok.RequiredArgsConstructor;
 

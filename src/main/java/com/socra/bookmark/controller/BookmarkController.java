@@ -1,10 +1,13 @@
-package com.socra.bookmark;
+package com.socra.bookmark.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+
+import com.socra.bookmark.domain.Bookmark;
+import com.socra.bookmark.service.BookmarkService;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.socra.bookmark;
+package com.socra.bookmark.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

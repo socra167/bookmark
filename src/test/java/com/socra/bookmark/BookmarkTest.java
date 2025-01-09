@@ -8,6 +8,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 
+import com.socra.bookmark.domain.Bookmark;
+
 class BookmarkTest {
     SoftAssertions softly = new SoftAssertions();
 
