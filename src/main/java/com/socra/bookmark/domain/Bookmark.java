@@ -1,19 +1,27 @@
 package com.socra.bookmark.domain;
 
 import java.net.URI;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -33,15 +41,18 @@ public class Bookmark {
 	@Column(nullable = true)
 	private String description;
 
-	@Column(nullable = false)
-	private LocalDate date;
+	@CreatedDate
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime createdDate;
+
+	@OneToMany(mappedBy = "bookmarks")
+	private List<CustomTag> customTag = new ArrayList<>();
 
 	@Builder
-	public Bookmark(String name, URI uri, String description, LocalDate date) {
+	public Bookmark(String name, URI uri, String description) {
 		this.name = name;
 		this.uri = uri;
 		this.description = description;
-		this.date = date;
 	}
 
 	public void updateName(final String name) {
@@ -56,8 +67,5 @@ public class Bookmark {
 		this.description = description;
 	}
 
-	public void updateDate(final LocalDate date) {
-		this.date = date;
-	}
 }
 
