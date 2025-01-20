@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Getter
 @Entity
 public class Bookmark {
