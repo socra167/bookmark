@@ -53,9 +53,9 @@ public class BookmarkController {
 			return ResponseEntity.notFound().build();
 		}
 		Bookmark bookmark = existingBookmark.get();
-		bookmark.setName(updatedBookmark.getName());
-		bookmark.setUri(updatedBookmark.getUri());
-		bookmark.setDate(updatedBookmark.getDate());
+		bookmark.updateName(updatedBookmark.getName());
+		bookmark.updateUri(updatedBookmark.getUri());
+		bookmark.updateDate(updatedBookmark.getDate());
 		bookmarkService.saveBookmark(bookmark);
 		return ResponseEntity.ok(bookmark);
 	}
