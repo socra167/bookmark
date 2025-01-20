@@ -4,11 +4,16 @@ server:
 spring:
   application:
     name: "bookmark"
+
+  output:
+    ansi:
+      enabled: always
+
   datasource:
     driver-class-name: org.h2.Driver
     url: 'jdbc:h2:file:./data/bookmarks;AUTO_SERVER=TRUE'
-    username: username
-    password: password
+    username: sa
+    password:
 
   h2:
     console:
@@ -18,9 +23,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-        format_sql: false
-        show_sql: false
+        format_sql: true
+        show_sql: true
+        use_sql_comments: true
