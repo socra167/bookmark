@@ -49,7 +49,6 @@ public class ClipboardMonitorService {
 						.name(title)
 						.uri(uri)
 						.description(description)
-						.date(LocalDate.now())
 						.build();
 					bookmarkService.saveBookmark(bookmark); // URL을 DB에 저장
 					lastClipboardContent = text; // 새로운 클립보드 값을 저장
