@@ -23,7 +23,7 @@ public class BookmarkGroup {
 	@Column(nullable = false)
 	private String name;
 
-	@OneToMany(mappedBy = "bookmark_groups")
+	@OneToMany(mappedBy = "bookmarkGroups")
 	private List<Bookmark> bookmarks = new ArrayList<>();
 
 	@OneToMany(mappedBy = "bookmark_groups")
