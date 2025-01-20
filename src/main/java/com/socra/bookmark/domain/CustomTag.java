@@ -8,10 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Table(name = "custom_tags")
@@ -29,12 +31,12 @@ public class CustomTag {
 	TagType tagType;
 
 	@Column
-	private String value;
+	private String tagValue;
 
 	@Builder
-	private CustomTag(String name, TagType tagType, String value) {
+	private CustomTag(String name, TagType tagType, String tagValue) {
 		this.name = name;
 		this.tagType = tagType;
-		this.value = value;
+		this.tagValue = tagValue;
 	}
 }
