@@ -1,4 +1,4 @@
-package com.socra.bookmark.service;
+package com.socra.bookmark.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

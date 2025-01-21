@@ -27,4 +27,6 @@ public class BookmarkGroupController {
 		return ResponseEntity.created(URI.create("/api/bookmarkgroup/" + bookmarkGroup.getId()))
 			.body(bookmarkGroup);
 	}
+
+
 }

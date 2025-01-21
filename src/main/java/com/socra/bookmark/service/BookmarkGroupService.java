@@ -3,6 +3,7 @@ package com.socra.bookmark.service;
 import org.springframework.stereotype.Service;
 
 import com.socra.bookmark.domain.BookmarkGroup;
+import com.socra.bookmark.repository.BookmarkGroupRepository;
 
 import lombok.RequiredArgsConstructor;
 
