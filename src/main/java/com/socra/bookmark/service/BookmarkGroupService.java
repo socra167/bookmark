@@ -1,5 +1,7 @@
 package com.socra.bookmark.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.socra.bookmark.domain.BookmarkGroup;
@@ -14,5 +16,9 @@ public class BookmarkGroupService {
 
 	public BookmarkGroup saveBookmarkGroup(BookmarkGroup bookmarkGroup) {
 		return bookmarkGroupRepository.save(bookmarkGroup);
+	}
+
+	public List<BookmarkGroup> findAllBookmarkGroups() {
+		return bookmarkGroupRepository.findAll();
 	}
 }

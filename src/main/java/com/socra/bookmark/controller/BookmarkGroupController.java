@@ -4,12 +4,12 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.socra.bookmark.domain.Bookmark;
 import com.socra.bookmark.domain.BookmarkGroup;
 import com.socra.bookmark.service.BookmarkGroupService;
 
@@ -28,5 +28,8 @@ public class BookmarkGroupController {
 			.body(bookmarkGroup);
 	}
 
-
+	@GetMapping("/")
+	public ResponseEntity<List<BookmarkGroup>> getAllBookmarkGroups() {
+		return ResponseEntity.ok(bookmarkGroupService.findAllBookmarkGroups());
+	}
 }
