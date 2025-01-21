@@ -1,13 +1,14 @@
 package com.socra.bookmark.service;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.net.URI;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.awt.*;
-import java.awt.datatransfer.*;
-import java.net.URI;
-import java.time.LocalDate;
 
 import com.socra.bookmark.domain.Bookmark;
 import com.socra.bookmark.domain.MetaData;
@@ -19,9 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class ClipboardMonitorService {
 	private final BookmarkService bookmarkService;
 	private String lastClipboardContent = ""; // 이전 클립보드 값을 저장할 변수
-	private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+	// private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	/*
 	// @Scheduled(fixedRate = 1000) // 1초마다 클립보드 확인
 	public void monitorClipboard() {
 		try {
@@ -59,4 +61,5 @@ public class ClipboardMonitorService {
 			e.printStackTrace();
 		}
 	}
+	*/
 }

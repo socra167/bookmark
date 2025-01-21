@@ -12,8 +12,8 @@ import com.socra.bookmark.repository.BookmarkRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
 
