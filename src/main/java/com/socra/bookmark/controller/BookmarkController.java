@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/bookmarks")
+@RequestMapping("/api/bookmark")
 public class BookmarkController {
 	private final BookmarkService bookmarkService;
 
