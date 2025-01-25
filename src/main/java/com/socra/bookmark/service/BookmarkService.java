@@ -18,8 +18,8 @@ public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
 
     @Transactional
-    public void saveBookmark(Bookmark bookmark) {
-        bookmarkRepository.save(bookmark);
+    public Bookmark saveBookmark(Bookmark bookmark) {
+        return bookmarkRepository.save(bookmark);
     }
 
     @Transactional(readOnly = true)

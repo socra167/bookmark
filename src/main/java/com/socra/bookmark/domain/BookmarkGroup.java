@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,9 +40,15 @@ public class BookmarkGroup {
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
 
-	@OneToMany
+	@Builder.Default
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Bookmark> bookmarks = new ArrayList<>();
 
-	@OneToMany
+	@Builder.Default
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<CustomTag> customTags = new ArrayList<>();
+
+	public void addBookmark(Bookmark bookmark) {
+		bookmarks.add(bookmark);
+	}
 }
