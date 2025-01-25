@@ -59,4 +59,15 @@ class BookmarkGroupServiceTest {
 
 		assertThat(bookmarkGroup.getBookmarks()).containsExactly(bookmark1, bookmark2);
 	}
+
+	@Test
+	@Transactional
+	@DisplayName("BookmarkGroup의 name을 수정할 수 있다")
+	void updateBookmarkGroupName() {
+		BookmarkGroup bookmarkGroup = bookmarkGroupService.createBookmarkGroup();
+		var newName = "new name";
+		bookmarkGroup.updateName(newName);
+
+		assertThat(bookmarkGroup.getName()).isEqualTo(newName);
+	}
 }

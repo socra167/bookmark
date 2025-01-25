@@ -51,4 +51,8 @@ public class BookmarkGroup {
 	public void addBookmark(Bookmark bookmark) {
 		bookmarks.add(bookmark);
 	}
+
+	public void updateName(String name) {
+		this.name = name;
+	}
 }
