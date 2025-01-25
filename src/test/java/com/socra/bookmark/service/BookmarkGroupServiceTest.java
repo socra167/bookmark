@@ -74,7 +74,7 @@ class BookmarkGroupServiceTest {
 
 	@Test
 	@Transactional
-	@DisplayName("모든 북마크 그룹 조회")
+	@DisplayName("모든 BookmarkGroup 조회")
 	void findAllBookmarkGroup() {
 		bookmarkGroupService.createBookmarkGroup();
 		bookmarkGroupService.createBookmarkGroup();
