@@ -1,13 +1,12 @@
 server:
   port: 8080
-
 spring:
   application:
     name: "bookmark"
 
   config:
     activate:
-      on-profile: dev
+      on-profile: test
 
   output:
     ansi:
@@ -15,7 +14,7 @@ spring:
 
   datasource:
     driver-class-name: org.h2.Driver
-    url: 'jdbc:h2:file:./data/bookmarks;AUTO_SERVER=TRUE'
+    url: 'jdbc:h2:file:./data/bookmarks-test'
     username: sa
     password:
 
@@ -25,12 +24,20 @@ spring:
       path: /h2-console
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
+        highlight_sql: true
         show_sql: true
         use_sql_comments: true
+        query.in_clause_parameter_padding: true
+        default_batch_fetch_size: 100
+
+logging:
+  level:
+    org.hibernate.sql: TRACE
+    org.hibernate.orm.jdbc.blind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+    org.springframework.transaction.interceptor: TRACE

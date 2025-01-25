@@ -9,10 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.socra.bookmark.domain.BookmarkGroup;
 import com.socra.bookmark.repository.BookmarkGroupRepository;
 
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BookmarkGroupControllerIntegrationTest {
 	@Autowired private TestRestTemplate restTemplate;
