@@ -1,9 +1,7 @@
 package com.socra.bookmark.service;
 
-import java.net.UnknownServiceException;
 import java.util.List;
 
-import org.hibernate.sql.ast.tree.expression.UnaryOperation;
 import org.springframework.stereotype.Service;
 
 import com.socra.bookmark.domain.BookmarkGroup;
@@ -15,6 +13,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class BookmarkGroupService {
 	private final BookmarkGroupRepository bookmarkGroupRepository;
+
+	public List<BookmarkGroup> findAllBookmarkGroup() {
+		return bookmarkGroupRepository.findAll();
+	}
 
 	public BookmarkGroup createBookmarkGroup() {
 		BookmarkGroup bookmarkGroup = BookmarkGroup.builder().name("bookmark group").build();

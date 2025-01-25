@@ -3,6 +3,7 @@ package com.socra.bookmark.service;
 import static org.assertj.core.api.Assertions.*;
 
 import java.net.URI;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -69,5 +70,18 @@ class BookmarkGroupServiceTest {
 		bookmarkGroup.updateName(newName);
 
 		assertThat(bookmarkGroup.getName()).isEqualTo(newName);
+	}
+
+	@Test
+	@Transactional
+	@DisplayName("모든 북마크 그룹 조회")
+	void findAllBookmarkGroup() {
+		bookmarkGroupService.createBookmarkGroup();
+		bookmarkGroupService.createBookmarkGroup();
+		bookmarkGroupService.createBookmarkGroup();
+
+		List<BookmarkGroup> bookmarkGroups = bookmarkGroupService.findAllBookmarkGroup();
+
+		assertThat(bookmarkGroups).hasSize(3);
 	}
 }
