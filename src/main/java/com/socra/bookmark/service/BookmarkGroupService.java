@@ -1,5 +1,6 @@
 package com.socra.bookmark.service;
 
+import java.awt.print.Book;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +15,10 @@ import lombok.RequiredArgsConstructor;
 public class BookmarkGroupService {
 	private final BookmarkGroupRepository bookmarkGroupRepository;
 
-	public BookmarkGroup saveBookmarkGroup(BookmarkGroup bookmarkGroup) {
+	public BookmarkGroup createBookmarkGroup() {
+		BookmarkGroup bookmarkGroup = BookmarkGroup.builder()
+			.name("bookmark group")
+			.build();
 		return bookmarkGroupRepository.save(bookmarkGroup);
 	}
 

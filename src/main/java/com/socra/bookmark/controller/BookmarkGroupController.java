@@ -22,8 +22,8 @@ public class BookmarkGroupController {
 	private final BookmarkGroupService bookmarkGroupService;
 
 	@PostMapping()
-	public ResponseEntity<BookmarkGroup> createBookmarkGroup(@RequestBody BookmarkGroup bookmarkGroup) {
-		bookmarkGroupService.saveBookmarkGroup(bookmarkGroup);
+	public ResponseEntity<BookmarkGroup> createBookmarkGroup() {
+		BookmarkGroup bookmarkGroup = bookmarkGroupService.createBookmarkGroup();
 		return ResponseEntity.created(URI.create("/api/bookmarkgroup/" + bookmarkGroup.getId()))
 			.body(bookmarkGroup);
 	}
