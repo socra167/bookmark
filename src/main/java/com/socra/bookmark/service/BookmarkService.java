@@ -18,6 +18,13 @@ public class BookmarkService {
     private final BookmarkRepository bookmarkRepository;
 
     @Transactional
+    public void updateBookmark(Bookmark bookmark, Bookmark newBookmark) {
+        bookmark.updateName(newBookmark.getName());
+        bookmark.updateUri(newBookmark.getUri());
+        bookmark.updateDescription(newBookmark.getDescription());
+    }
+
+    @Transactional
     public Bookmark saveBookmark(Bookmark bookmark) {
         return bookmarkRepository.save(bookmark);
     }

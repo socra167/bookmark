@@ -5,10 +5,6 @@ spring:
   application:
     name: "bookmark"
 
-  config:
-    activate:
-      on-profile: dev
-
   output:
     ansi:
       enabled: always

@@ -48,15 +48,9 @@ public class BookmarkController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Bookmark> updateBookmark(@PathVariable Long id, @RequestBody Bookmark updatedBookmark) {
-		var existingBookmark = bookmarkService.findBookmarkById(id);
-		if (!existingBookmark.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		Bookmark bookmark = existingBookmark.get();
-		bookmark.updateName(updatedBookmark.getName());
-		bookmark.updateUri(updatedBookmark.getUri());
-		bookmarkService.saveBookmark(bookmark);
+	public ResponseEntity<Bookmark> updateBookmark(@PathVariable long id, @RequestBody Bookmark newBookmark) {
+		var bookmark = bookmarkService.findBookmarkById(id).get();
+		bookmarkService.updateBookmark(bookmark, newBookmark);
 		return ResponseEntity.ok(bookmark);
 	}
 

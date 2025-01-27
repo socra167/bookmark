@@ -53,10 +53,10 @@ class BookmarkPlaylistServiceTest {
 			.build();
 		bookmark1 = bookmarkService.saveBookmark(bookmark1);
 		bookmark2 = bookmarkService.saveBookmark(bookmark2);
-		bookmarkPlaylistService.createBookmarkPlaylist();
-		BookmarkPlaylist bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(1L);
-		bookmarkPlaylist.addBookmark(bookmark1);
-		bookmarkPlaylist.addBookmark(bookmark2);
+		BookmarkPlaylist bookmarkPlaylist = bookmarkPlaylistService.createBookmarkPlaylist();
+
+		bookmarkPlaylistService.addBookmark(bookmarkPlaylist, bookmark1);
+		bookmarkPlaylistService.addBookmark(bookmarkPlaylist, bookmark2);
 
 		assertThat(bookmarkPlaylist.getBookmarks()).containsExactly(bookmark1, bookmark2);
 	}
@@ -67,7 +67,7 @@ class BookmarkPlaylistServiceTest {
 	void updateBookmarkPlaylistName() {
 		BookmarkPlaylist bookmarkPlaylist = bookmarkPlaylistService.createBookmarkPlaylist();
 		var newName = "new name";
-		bookmarkPlaylist.updateName(newName);
+		bookmarkPlaylistService.updateName(bookmarkPlaylist, newName);
 
 		assertThat(bookmarkPlaylist.getName()).isEqualTo(newName);
 	}
@@ -86,6 +86,7 @@ class BookmarkPlaylistServiceTest {
 	}
 
 	@Test
+	@Transactional
 	@DisplayName("북마크 플레이리스트에서 북마크를 삭제할 수 있다")
 	void removeBookmarkFromBookmarkPlaylist() {
 		var bookmarkPlaylist = bookmarkPlaylistService.createBookmarkPlaylist();
@@ -102,12 +103,13 @@ class BookmarkPlaylistServiceTest {
 		bookmarkPlaylist.addBookmark(bookmark1);
 		bookmarkPlaylist.addBookmark(bookmark2);
 
-		bookmarkPlaylist.removeBookmark(bookmark1);
+		bookmarkPlaylistService.removeBookmark(bookmarkPlaylist, bookmark1);
 
 		assertThat(bookmarkPlaylist.getBookmarks()).hasSize(1);
 	}
 
 	@Test
+	@Transactional
 	@DisplayName("북마크 플레이리스트에서 북마크의 순서를 변경할 수 있다. ")
 	void changeOrderOfBookmarksFromBookmarkPlaylist() {
 		var bookmarkPlaylist = bookmarkPlaylistService.createBookmarkPlaylist();
@@ -130,7 +132,7 @@ class BookmarkPlaylistServiceTest {
 		bookmarkPlaylist.addBookmark(bookmark2);
 		bookmarkPlaylist.addBookmark(bookmark3);
 
-		bookmarkPlaylist.changeOrderOfBookmark(2, 0);
+		bookmarkPlaylistService.changeOrderOfBookmark(bookmarkPlaylist, 2, 0);
 
 		assertThat(bookmarkPlaylist.getBookmarks()).containsExactly(bookmark3, bookmark1, bookmark2);
 	}
