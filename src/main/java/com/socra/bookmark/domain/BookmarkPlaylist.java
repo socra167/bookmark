@@ -55,4 +55,8 @@ public class BookmarkPlaylist {
 	public void updateName(String name) {
 		this.name = name;
 	}
+
+	public void removeBookmark(Bookmark bookmark) {
+		bookmarks.remove(bookmark);
+	}
 }

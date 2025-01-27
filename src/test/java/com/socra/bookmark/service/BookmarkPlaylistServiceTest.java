@@ -84,4 +84,26 @@ class BookmarkPlaylistServiceTest {
 
 		assertThat(bookmarkPlaylists).hasSize(3);
 	}
+
+	@Test
+	@DisplayName("북마크 플레이리스트에서 북마크를 삭제할 수 있다")
+	void removeBookmarkFromBookmarkPlaylist() {
+		var bookmarkPlaylist = bookmarkPlaylistService.createBookmarkPlaylist();
+		var bookmark1 = bookmarkService.saveBookmark(Bookmark.builder()
+			.uri(URI.create("https://www.google.com"))
+			.name("Google")
+			.description("google description")
+			.build());
+		var bookmark2 = bookmarkService.saveBookmark(Bookmark.builder()
+			.uri(URI.create("https://www.naver.com"))
+			.name("naver")
+			.description("naver description")
+			.build());
+		bookmarkPlaylist.addBookmark(bookmark1);
+		bookmarkPlaylist.addBookmark(bookmark2);
+
+		bookmarkPlaylist.removeBookmark(bookmark1);
+
+		assertThat(bookmarkPlaylist.getBookmarks()).hasSize(1);
+	}
 }
