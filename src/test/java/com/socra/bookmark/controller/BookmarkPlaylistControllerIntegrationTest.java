@@ -11,25 +11,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.socra.bookmark.domain.BookmarkGroup;
-import com.socra.bookmark.repository.BookmarkGroupRepository;
+import com.socra.bookmark.domain.BookmarkPlaylist;
+import com.socra.bookmark.repository.BookmarkPlaylistRepository;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class BookmarkGroupControllerIntegrationTest {
-	@Autowired private TestRestTemplate restTemplate;
-	@Autowired private BookmarkGroupRepository bookmarkGroupRepository;
+class BookmarkPlaylistControllerIntegrationTest {
+
+	@Autowired
+	private TestRestTemplate restTemplate;
+
+	@Autowired
+	private BookmarkPlaylistRepository bookmarkPlaylistRepository;
 
 	@Test
 	@DisplayName("북마크 그룹을 생성할 수 있다")
-	void createBookmarkGroup() {
-		BookmarkGroup bookmarkGroup = BookmarkGroup.builder()
-			.name("first bookmark group")
-			.build();
+	void createBookmarkPlaylist() {
+		BookmarkPlaylist bookmarkPlaylist = BookmarkPlaylist.builder().name("first bookmark group").build();
 
-		ResponseEntity<BookmarkGroup> response = restTemplate.postForEntity("/api/bookmarkgroup", bookmarkGroup, BookmarkGroup.class);
+		ResponseEntity<BookmarkPlaylist> response = restTemplate.postForEntity("/api/bookmarks/playlists",
+			bookmarkPlaylist, BookmarkPlaylist.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-		assertThat(bookmarkGroupRepository.existsById(response.getBody().getId())).isTrue();
+		assertThat(bookmarkPlaylistRepository.existsById(response.getBody().getId())).isTrue();
 	}
 }

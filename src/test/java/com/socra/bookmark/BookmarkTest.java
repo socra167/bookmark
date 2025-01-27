@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import com.socra.bookmark.domain.Bookmark;
 
 class BookmarkTest {
+
     SoftAssertions softly = new SoftAssertions();
 
     @Test

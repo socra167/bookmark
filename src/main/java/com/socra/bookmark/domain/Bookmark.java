@@ -60,6 +60,5 @@ public class Bookmark {
 	public void updateDescription(final String description) {
 		this.description = description;
 	}
-
 }
 

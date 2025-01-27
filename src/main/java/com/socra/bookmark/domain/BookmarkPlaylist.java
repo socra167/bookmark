@@ -26,9 +26,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "bookmark_groups")
+@Table(name = "bookmark_playlists")
 @Entity
-public class BookmarkGroup {
+public class BookmarkPlaylist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
