@@ -106,4 +106,32 @@ class BookmarkPlaylistServiceTest {
 
 		assertThat(bookmarkPlaylist.getBookmarks()).hasSize(1);
 	}
+
+	@Test
+	@DisplayName("북마크 플레이리스트에서 북마크의 순서를 변경할 수 있다. ")
+	void changeOrderOfBookmarksFromBookmarkPlaylist() {
+		var bookmarkPlaylist = bookmarkPlaylistService.createBookmarkPlaylist();
+		var bookmark1 = bookmarkService.saveBookmark(Bookmark.builder()
+			.uri(URI.create("https://www.google.com"))
+			.name("Google")
+			.description("google description")
+			.build());
+		var bookmark2 = bookmarkService.saveBookmark(Bookmark.builder()
+			.uri(URI.create("https://www.naver.com"))
+			.name("naver")
+			.description("naver description")
+			.build());
+		var bookmark3 = bookmarkService.saveBookmark(Bookmark.builder()
+			.uri(URI.create("https://www.youtube.com"))
+			.name("Youtube")
+			.description("youtube description")
+			.build());
+		bookmarkPlaylist.addBookmark(bookmark1);
+		bookmarkPlaylist.addBookmark(bookmark2);
+		bookmarkPlaylist.addBookmark(bookmark3);
+
+		bookmarkPlaylist.changeOrderOfBookmark(2, 0);
+
+		assertThat(bookmarkPlaylist.getBookmarks()).containsExactly(bookmark3, bookmark1, bookmark2);
+	}
 }
