@@ -70,11 +70,14 @@ public class BookmarkPlaylistController {
 		return ResponseEntity.ok().build();
 	}
 
+	record ChangeOrderRequest(int fromIndex, int destIndex) {
+	}
+
 	@PatchMapping("/{id}/order")
-	public ResponseEntity changeOrderOfBookmarksFromBookmarkPlaylist(@PathVariable long id, @RequestBody int fromIndex,
-		@RequestBody int destIndex) {
+	public ResponseEntity changeOrderOfBookmarksFromBookmarkPlaylist(@PathVariable long id,
+		@RequestBody ChangeOrderRequest request) {
 		var bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(id);
-		bookmarkPlaylistService.changeOrderOfBookmark(bookmarkPlaylist, fromIndex, destIndex);
+		bookmarkPlaylistService.changeOrderOfBookmark(bookmarkPlaylist, request.fromIndex(), request.destIndex());
 		return ResponseEntity.ok().build();
 	}
 }
