@@ -46,7 +46,7 @@ public class BookmarkPlaylistController {
 	}
 
 	@PostMapping("/{id}/bookmarks/{bookmarkId}")
-	public ResponseEntity addBookmarkToBookmarkPlaylist(@PathVariable long id, @PathVariable long bookmarkId) {
+	public ResponseEntity<Void> addBookmarkToBookmarkPlaylist(@PathVariable long id, @PathVariable long bookmarkId) {
 		var bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(id);
 		var bookmark = bookmarkService.findBookmarkById(bookmarkId);
 		bookmarkPlaylistService.addBookmark(bookmarkPlaylist,
@@ -55,14 +55,14 @@ public class BookmarkPlaylistController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity updateBookmarkPlaylistName(@PathVariable long id, @RequestBody String name) {
+	public ResponseEntity<Void> updateBookmarkPlaylistName(@PathVariable long id, @RequestBody String name) {
 		var bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(id);
 		bookmarkPlaylistService.updateName(bookmarkPlaylist, name);
 		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/{id}/{bookmarkId}")
-	public ResponseEntity deleteBookmarkFromBookmarkPlaylist(@PathVariable long id, @PathVariable long bookmarkId) {
+	public ResponseEntity<Void> deleteBookmarkFromBookmarkPlaylist(@PathVariable long id, @PathVariable long bookmarkId) {
 		var bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(id);
 		var bookmark = bookmarkService.findBookmarkById(bookmarkId)
 			.orElseThrow(() -> new UnsupportedOperationException());
@@ -74,7 +74,7 @@ public class BookmarkPlaylistController {
 	}
 
 	@PatchMapping("/{id}/order")
-	public ResponseEntity changeOrderOfBookmarksFromBookmarkPlaylist(@PathVariable long id,
+	public ResponseEntity<Void> changeOrderOfBookmarksFromBookmarkPlaylist(@PathVariable long id,
 		@RequestBody ChangeOrderRequest request) {
 		var bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(id);
 		bookmarkPlaylistService.changeOrderOfBookmark(bookmarkPlaylist, request.fromIndex(), request.destIndex());
