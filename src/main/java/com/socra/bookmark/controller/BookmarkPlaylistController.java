@@ -45,8 +45,8 @@ public class BookmarkPlaylistController {
 		return ResponseEntity.ok(bookmarkPlaylistService.findBookmarkPlaylistById(id));
 	}
 
-	@PostMapping("/{id}")
-	public ResponseEntity addBookmarkToBookmarkPlaylist(@PathVariable long id, @RequestBody long bookmarkId) {
+	@PostMapping("/{id}/bookmarks/{bookmarkId}")
+	public ResponseEntity addBookmarkToBookmarkPlaylist(@PathVariable long id, @PathVariable long bookmarkId) {
 		var bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(id);
 		var bookmark = bookmarkService.findBookmarkById(bookmarkId);
 		bookmarkPlaylistService.addBookmark(bookmarkPlaylist,
