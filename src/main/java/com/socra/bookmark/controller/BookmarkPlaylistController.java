@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/bookmarks/playlists")
+@RequestMapping("/api/playlists")
 public class BookmarkPlaylistController {
 
 	private final BookmarkPlaylistService bookmarkPlaylistService;
@@ -31,7 +31,7 @@ public class BookmarkPlaylistController {
 	@PostMapping
 	public ResponseEntity<BookmarkPlaylist> createBookmarkPlaylist() {
 		BookmarkPlaylist bookmarkPlaylist = bookmarkPlaylistService.createBookmarkPlaylist();
-		return ResponseEntity.created(URI.create("/api/bookmarks/playlists/" + bookmarkPlaylist.getId()))
+		return ResponseEntity.created(URI.create("/api/playlists/" + bookmarkPlaylist.getId()))
 			.body(bookmarkPlaylist);
 	}
 
@@ -61,8 +61,8 @@ public class BookmarkPlaylistController {
 		return ResponseEntity.ok().build();
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteBookmarkFromBookmarkPlaylist(@PathVariable long id, @RequestBody long bookmarkId) {
+	@DeleteMapping("/{id}/{bookmarkId}")
+	public ResponseEntity deleteBookmarkFromBookmarkPlaylist(@PathVariable long id, @PathVariable long bookmarkId) {
 		var bookmarkPlaylist = bookmarkPlaylistService.findBookmarkPlaylistById(id);
 		var bookmark = bookmarkService.findBookmarkById(bookmarkId)
 			.orElseThrow(() -> new UnsupportedOperationException());
