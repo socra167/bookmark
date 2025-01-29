@@ -63,7 +63,6 @@ public class BookmarkPlaylist {
 		bookmarks.remove(bookmark);
 	}
 
-	@Transactional
 	public void changeOrderOfBookmark(int indexFrom, int indexDest) {
 		Bookmark bookmark = bookmarks.remove(indexFrom);
 		bookmarks.add(indexDest, bookmark);
