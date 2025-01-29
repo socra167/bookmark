@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.socra.bookmark.domain.Bookmark;
 import com.socra.bookmark.domain.BookmarkPlaylist;
+import com.socra.bookmark.domain.BookmarkPlaylistBookmark;
 import com.socra.bookmark.repository.BookmarkPlaylistRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,15 @@ public class BookmarkPlaylistService {
 	}
 
 	@Transactional
-	public void addBookmark(BookmarkPlaylist bookmarkPlaylist, Bookmark bookmark) {
-		bookmarkPlaylist.addBookmark(bookmark);
+	public void addBookmark(BookmarkPlaylist playlist, Bookmark bookmark) {
+		int nextOrderIndex = playlist.getBookmarks().size();
+
+		BookmarkPlaylistBookmark playlistBookmark = new BookmarkPlaylistBookmark();
+		playlistBookmark.setBookmarkPlaylist(playlist);
+		playlistBookmark.setBookmark(bookmark);
+		playlistBookmark.setOrderIndex(nextOrderIndex);
+
+		playlist.getBookmarks().add(playlistBookmark);
 	}
 
 	@Transactional
@@ -50,6 +58,13 @@ public class BookmarkPlaylistService {
 
 	@Transactional
 	public void changeOrderOfBookmark(BookmarkPlaylist bookmarkPlaylist, int fromIndex, int destIndex) {
-		bookmarkPlaylist.changeOrderOfBookmark(fromIndex, destIndex);
+		List<BookmarkPlaylistBookmark> bookmarks = bookmarkPlaylist.getBookmarks();
+
+		BookmarkPlaylistBookmark movedBookmark = bookmarks.remove(fromIndex);
+		bookmarks.add(destIndex, movedBookmark);
+
+		for (int i = 0; i < bookmarks.size(); i++) {
+			bookmarks.get(i).setOrderIndex(i);
+		}
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -16,6 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.OrderColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -42,18 +44,14 @@ public class BookmarkPlaylist {
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
 
-	@Builder.Default
-	@OrderColumn
-	@OneToMany(fetch = FetchType.LAZY)
-	private List<Bookmark> bookmarks = new ArrayList<>();
+	@OneToMany(mappedBy = "bookmarkPlaylist", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OrderBy("orderIndex ASC")
+	private List<BookmarkPlaylistBookmark> bookmarks = new ArrayList<>();
+
 
 	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<CustomTag> customTags = new ArrayList<>();
-
-	public void addBookmark(Bookmark bookmark) {
-		bookmarks.add(bookmark);
-	}
 
 	public void updateName(String name) {
 		this.name = name;
@@ -61,10 +59,5 @@ public class BookmarkPlaylist {
 
 	public void removeBookmark(Bookmark bookmark) {
 		bookmarks.remove(bookmark);
-	}
-
-	public void changeOrderOfBookmark(int indexFrom, int indexDest) {
-		Bookmark bookmark = bookmarks.remove(indexFrom);
-		bookmarks.add(indexDest, bookmark);
 	}
 }
