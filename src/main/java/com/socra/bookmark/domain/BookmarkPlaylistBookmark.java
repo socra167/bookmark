@@ -8,14 +8,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "bookmark_playlists_bookmarks")
 public class BookmarkPlaylistBookmark {
@@ -34,17 +35,5 @@ public class BookmarkPlaylistBookmark {
 
 	@Column(nullable = false)
 	private int orderIndex;
-
-	public void setBookmarkPlaylist(BookmarkPlaylist playlist) {
-		this.bookmarkPlaylist = playlist;
-	}
-
-	public void setBookmark(Bookmark bookmark) {
-		this.bookmark = bookmark;
-	}
-
-	public void setOrderIndex(int nextOrderIndex) {
-		this.orderIndex = nextOrderIndex;
-	}
 }
 
